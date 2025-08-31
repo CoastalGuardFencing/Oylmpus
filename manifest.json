@@ -1,0 +1,9 @@
+{
+  "short_name": "PraxisOS",
+  "name": "PraxisOS: A Mythic Intelligence Platform",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#312e4d",
+  "background_color": "#1a162e",
+  "description": "A modular intelligence ritual for creators, strategists, and architects. Every module remembers its lineage. Every prompt is a declaration."
+}

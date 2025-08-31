@@ -1,0 +1,55 @@
+{
+  "name": "praxisos",
+  "version": "3.2.0",
+  "private": true,
+  "description": "A modular intelligence ritual for creators, strategists, and architects.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "cap:sync": "npx cap sync"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "@google/genai": "^1.16.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/ios": "^6.0.0",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  },
+  "author": "Matthew Talley",
+  "license": "UNLICENSED",
+  "build": {
+    "appId": "com.praxisos.reviewer",
+    "productName": "PraxisOS",
+    "files": [
+      "**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}

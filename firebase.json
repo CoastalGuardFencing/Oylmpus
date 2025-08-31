@@ -1,0 +1,38 @@
+{
+  "hosting": [
+    {
+      "site": "OlympusVault",
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "site": "Praxis-os",
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "/synthesizer",
+          "destination": "/reality-synthesizer.html"
+        },
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

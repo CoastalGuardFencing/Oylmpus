@@ -1,0 +1,6 @@
+{
+  "appId": "com.praxisos.reviewer",
+  "appName": "PraxisOS Collaborator",
+  "webDir": ".",
+  "bundledWebRuntime": false
+}

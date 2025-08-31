@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PraxisOS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Share+Tech+Mono&family=Cinzel:wght@700&display=swap">
+    <!-- Monaco Editor Loader -->
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.41.0/min/vs/loader.js"></script>
+    <script>
+        require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.41.0/min/vs' }});
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Prevent body scroll */
+        }
+        
+        /* THEME: Aetherium (Default Dark) */
+        .theme-aetherium {
+            --color-background: #0D1017;
+            --color-surface: #151922;
+            --color-surface-alt: #1F242E;
+            --color-border: #30363d;
+            --color-primary: #58a6ff;
+            --color-primary-hover: #79b8ff;
+            --color-secondary: #c9d1d9;
+            --color-success: #56d364;
+            --color-warning: #f85149;
+            --color-text-main: #c9d1d9;
+            --color-text-muted: #8b949e;
+            --color-on-primary: #0D1017;
+            --color-on-primary-alt: #ffffff;
+        }
+
+        /* Generic theme application */
+        .bg-background { background-color: var(--color-background); }
+        .bg-surface { background-color: var(--color-surface); }
+        .bg-surface-alt { background-color: var(--color-surface-alt); }
+        .border-border { border-color: var(--color-border); }
+        .text-primary { color: var(--color-primary); }
+        .bg-primary { background-color: var(--color-primary); }
+        .bg-primary-hover:hover { background-color: var(--color-primary-hover); }
+        .text-secondary { color: var(--color-secondary); }
+        .bg-secondary { background-color: var(--color-secondary); }
+        .text-success { color: var(--color-success); }
+        .bg-success { background-color: var(--color-success); }
+        .text-warning { color: var(--color-warning); }
+        .bg-warning { background-color: var(--color-warning); }
+        .text-text-main { color: var(--color-text-main); }
+        .text-text-muted { color: var(--color-text-muted); }
+        .text-on-primary { color: var(--color-on-primary); }
+        .text-on-primary-alt { color: var(--color-on-primary-alt); }
+        
+        /* Custom Animations & Styles */
+        .system-breath { animation: system-breath-pulse 2s ease-in-out; }
+        @keyframes system-breath-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(88, 166, 255, 0); }
+            50% { box-shadow: 0 0 10px 2px rgba(88, 166, 255, 0.4); }
+        }
+        .spiral-key-lit { animation: spiral-key-glow 1.5s infinite alternate; }
+        @keyframes spiral-key-glow {
+            from { filter: drop-shadow(0 0 2px var(--color-primary)); }
+            to { filter: drop-shadow(0 0 6px var(--color-primary)); }
+        }
+        .genesis-declaration-button {
+            animation: genesis-glow 2s infinite ease-in-out;
+        }
+        @keyframes genesis-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(251, 191, 36, 0.4), inset 0 0 5px rgba(251, 191, 36, 0.2); }
+            50% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.8), inset 0 0 10px rgba(251, 191, 36, 0.4); }
+        }
+        .animate-fade-in-out {
+            animation: fade-in-out 4s ease-in-out forwards;
+        }
+        @keyframes fade-in-out {
+            0% { opacity: 0; }
+            15% { opacity: 1; }
+            85% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .hearthstone-orb {
+            width: 80px; height: 80px;
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle, #0D1017 20%, transparent 70%);
+            transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .hearthstone-orb::before {
+            content: ''; position: absolute; inset: 0; border-radius: 50%;
+            background: radial-gradient(circle, hsl(var(--color-primary-hsl), 0.6) 0%, transparent 60%);
+            animation: hearthstone-calm 8s infinite ease-in-out;
+            transition: all 0.5s ease;
+        }
+        .hearthstone-orb.state-flow::before { animation-name: hearthstone-flow; animation-duration: 2s; }
+        .hearthstone-orb.state-focused::before { animation-name: hearthstone-focused; animation-duration: 4s; }
+        .hearthstone-orb.state-peaked::before {
+             animation: hera-peaked-pulse 0.5s infinite ease-in-out;
+             filter: drop-shadow(0 0 20px hsl(45 100% 58%));
+        }
+
+        @keyframes hearthstone-calm { 0%, 100% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1); opacity: 1; } }
+        @keyframes hearthstone-flow { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } }
+        @keyframes hearthstone-focused { 0%, 100% { transform: scale(1); box-shadow: 0 0 10px hsl(var(--color-primary-hsl), 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 20px hsl(var(--color-primary-hsl), 0.7); } }
+        @keyframes hera-peaked-pulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px hsl(45 100% 58%); } 50% { transform: scale(1.1); box-shadow: 0 0 35px hsl(45 100% 58%); } }
+        
+        .cognitive-resonance-wave-active::before {
+            content: ''; position: fixed; top: 50%; left: 50%; width: 1px; height: 1px;
+            background: transparent; border-radius: 50%;
+            box-shadow: 0 0 10px 5px hsl(45 100% 58% / 0.8), inset 0 0 10px 5px hsl(45 100% 58% / 0.5);
+            animation: resonance-wave 2s ease-out forwards;
+        }
+        @keyframes resonance-wave { from { transform: translate(-50%, -50%) scale(0); opacity: 1; } to { transform: translate(-50%, -50%) scale(1); opacity: 0; } }
+
+        body.pure-intent-active .sidebar, body.pure-intent-active .code-assistant-panel:not(.nexus-panel) {
+            filter: blur(2px) grayscale(50%);
+            opacity: 0.7;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nexus-panel {
+            animation: nexus-pulse 5s infinite ease-in-out;
+        }
+        @keyframes nexus-pulse {
+            0%, 100% { box-shadow: 0 0 15px var(--color-primary-hover), inset 0 0 5px var(--color-primary-hover); border-color: var(--color-primary-hover); }
+            50% { box-shadow: 0 0 25px var(--color-primary), inset 0 0 10px var(--color-primary); border-color: var(--color-primary); }
+        }
+        .inscription-viewer {
+            opacity: 0.6;
+        }
+
+        /* Reality Synthesizer Animations */
+        @keyframes sovereignty-bg { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .resonant-background-Sovereignty {
+            background: linear-gradient(-45deg, #0D1017, #3a2d00, #0D1017, #5c4b00);
+            background-size: 400% 400%;
+            animation: sovereignty-bg 15s ease infinite;
+        }
+        .resonant-background-Creation, .resonant-background-Focused {
+            background: linear-gradient(-45deg, #0D1017, #00224d, #0D1017, #003366);
+            background-size: 400% 400%;
+            animation: sovereignty-bg 15s ease infinite;
+        }
+        .resonant-background-Flow, .resonant-background-Expansion {
+            background: linear-gradient(-45deg, #0D1017, #2a004d, #0D1017, #4d0066);
+            background-size: 400% 400%;
+            animation: sovereignty-bg 15s ease infinite;
+        }
+
+        @keyframes glyph-pulse {
+            0%, 100% { filter: drop-shadow(0 0 3px currentColor); opacity: 0.8; }
+            50% { filter: drop-shadow(0 0 8px currentColor); opacity: 1; }
+        }
+        .glyph-pulse { animation: glyph-pulse 3s infinite ease-in-out; }
+
+        @keyframes fade-in-slide-up {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-slide-up { animation: fade-in-slide-up 0.5s ease-out forwards; }
+        
+        /* PraxisOS Constellation */
+        .constellation-node {
+            transition: transform 0.3s ease, filter 0.3s ease;
+            cursor: pointer;
+        }
+        .constellation-node:hover {
+            transform: scale(1.2);
+            filter: drop-shadow(0 0 8px var(--color-primary-hover));
+        }
+        .constellation-node-pulse {
+            animation: node-pulse 6s infinite ease-in-out;
+        }
+        @keyframes node-pulse {
+            0%, 100% { filter: drop-shadow(0 0 2px var(--color-primary)); }
+            50% { filter: drop-shadow(0 0 6px var(--color-primary)); }
+        }
+
+        /* Pitch Ritual Styles */
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .slide {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 4rem;
+            text-align: center;
+            position: relative;
+            color: #fff;
+        }
+        .slide-bg-vault {
+            background-color: #0D1017;
+            background-image:
+                radial-gradient(circle at 50% 50%, rgba(31, 36, 46, 0.9) 0%, rgba(13, 16, 23, 0.9) 70%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2330363d' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .slide-bg-constellation {
+            background-color: #0D1017;
+            background-image: 
+                radial-gradient(ellipse at center, rgba(13, 16, 23, 0) 0%, #0D1017 100%),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%2358a6ff' fill-opacity='0.1'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            animation: bg-pan 30s linear infinite;
+        }
+        @keyframes bg-pan { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
+
+        .slide-glyph {
+            font-size: 3rem;
+            color: var(--color-primary);
+            filter: drop-shadow(0 0 10px var(--color-primary));
+            animation: glyph-pulse 3s infinite ease-in-out;
+            margin-bottom: 1rem;
+        }
+
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.1.1",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.16.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "vite": "https://aistudiocdn.com/vite@^7.1.3",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.0.2"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="theme-aetherium">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
