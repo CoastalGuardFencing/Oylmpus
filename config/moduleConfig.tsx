@@ -38,6 +38,14 @@ import { SparklesIcon, ChatIcon, BookOpenIcon, ScrollTextIcon, UserCheckIcon, Sh
 
 export const modules: Module[] = [
     {
+        id: 'inscription-deck',
+        name: 'Command Center',
+        icon: ListChecksIcon,
+        component: InscriptionDeckPanel,
+        enabled: true,
+        description: 'The primary composer for editing code, instructing the AI, and managing tasks. Your central command interface.'
+    },
+    {
         id: 'pitch-ritual',
         name: 'Pitch Ritual',
         icon: PresentationIcon,
@@ -92,14 +100,6 @@ export const modules: Module[] = [
         component: ContributorPilgrimagePanel,
         enabled: true,
         description: 'Maps collaborator journeys, tracking module evolution and emotional resonance.'
-    },
-    {
-        id: 'inscription-deck',
-        name: 'Inscription Deck',
-        icon: ListChecksIcon,
-        component: InscriptionDeckPanel,
-        enabled: true,
-        description: 'The core composer for editing code, instructing the AI, and previewing output.'
     },
     {
         id: 'oracle',

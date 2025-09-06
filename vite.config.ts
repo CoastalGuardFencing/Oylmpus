@@ -6,5 +6,12 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: 'dist' // Explicitly set output dir to match firebase.json
+  },
+  define: {
+    'process.env': {},
+    global: 'globalThis',
+  },
+  optimizeDeps: {
+    include: ['react', 'react-dom', '@google/genai']
   }
 })
