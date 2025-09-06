@@ -32,9 +32,10 @@ import InvestorPortalPanel from '../components/InvestorPortalPanel';
 import DashboardPanel from '../components/DashboardPanel';
 import MobileMirrorPanel from '../components/MobileMirrorPanel';
 import PitchRitualPanel from '../components/PitchRitualPanel';
+import OmegaHelpPanel from '../components/OmegaHelpPanel';
 
 
-import { SparklesIcon, ChatIcon, BookOpenIcon, ScrollTextIcon, UserCheckIcon, Share2Icon, FingerprintIcon, FileTextIcon, ListChecksIcon, BrainCircuitIcon, CopyPlusIcon, CompassIcon, MagicWandIcon, SearchCheckIcon, TrendingUpIcon, FolderUpIcon, AetherSigilIcon, UserIcon, BridgeIcon, MapIcon, ZapIcon, Wand2Icon, HeartIcon, ShieldCheckIcon, LandmarkIcon, SmartphoneIcon, LayoutGridIcon, PresentationIcon } from '../components/icons';
+import { SparklesIcon, ChatIcon, BookOpenIcon, ScrollTextIcon, UserCheckIcon, Share2Icon, FingerprintIcon, FileTextIcon, ListChecksIcon, BrainCircuitIcon, CopyPlusIcon, CompassIcon, MagicWandIcon, SearchCheckIcon, TrendingUpIcon, FolderUpIcon, AetherSigilIcon, UserIcon, BridgeIcon, MapIcon, ZapIcon, Wand2Icon, HeartIcon, ShieldCheckIcon, LandmarkIcon, SmartphoneIcon, LayoutGridIcon, PresentationIcon, InfoIcon } from '../components/icons';
 
 export const modules: Module[] = [
     {
@@ -52,6 +53,14 @@ export const modules: Module[] = [
         component: DashboardPanel,
         enabled: true,
         description: 'A unified composer for editing, AI guidance, system logs, and contributor tracking.'
+    },
+    {
+        id: 'omega-help',
+        name: 'Omega Help',
+        icon: InfoIcon,
+        component: OmegaHelpPanel,
+        enabled: true,
+        description: 'Comprehensive guide to using PraxisOS Omega - features, troubleshooting, and getting started.'
     },
     {
         id: 'mobile-mirror',
