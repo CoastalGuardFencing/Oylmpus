@@ -81,12 +81,37 @@ const UnifiedComposerPanel: React.FC<UnifiedComposerPanelProps> = (props) => {
         deploymentState, genesisState, onGenesisDeclaration
     } = props;
     
+    // Guard against undefined codeInstances
+    if (!codeInstances || codeInstances.length === 0) {
+        return (
+            <div className="flex flex-col h-full bg-surface/50 rounded-xl border border-border/50">
+                <div className="flex-shrink-0 p-4 border-b border-border bg-surface rounded-t-xl">
+                    <h2 className="text-xl font-bold text-primary">Command Center</h2>
+                    <p className="text-sm text-text-muted">No code instances available. Loading project data...</p>
+                </div>
+            </div>
+        );
+    }
+    
     const activeInstance = codeInstances.find(c => c.id === activeInstanceId) || codeInstances[0];
+    
+    // Guard against undefined activeInstance
+    if (!activeInstance) {
+        return (
+            <div className="flex flex-col h-full bg-surface/50 rounded-xl border border-border/50">
+                <div className="flex-shrink-0 p-4 border-b border-border bg-surface rounded-t-xl">
+                    <h2 className="text-xl font-bold text-primary">Command Center</h2>
+                    <p className="text-sm text-text-muted">No valid code instance found. Please create a new project.</p>
+                </div>
+            </div>
+        );
+    }
+    
     const { sessionIntent, emotionalState, systemLaws, glyphMap } = appState;
     
     const activeSpire = activeInstance.primeSpire.id === activeInstance.activeSpireId 
         ? activeInstance.primeSpire
-        : activeInstance.echoSpires.find(s => s.id === activeInstance.activeSpireId) || activeInstance.primeSpire;
+        : (activeInstance.echoSpires || []).find(s => s.id === activeInstance.activeSpireId) || activeInstance.primeSpire;
 
     const activeKey = findKeyInTree(activeSpire, activeInstance.activeKeyId);
     
@@ -94,12 +119,12 @@ const UnifiedComposerPanel: React.FC<UnifiedComposerPanelProps> = (props) => {
     useEffect(() => { setInstruction(''); }, [activeInstance?.activeKeyId]);
 
     const handleCodeChange = (code: string) => {
-        if (!activeKey || isViewerMode) return;
+        if (!activeKey || isViewerMode || !activeInstance) return;
         const newActiveSpire = updateKeyInTree(activeSpire, activeKey.id, { content: code });
         const isPrime = activeInstance.activeSpireId === activeInstance.primeSpire.id;
         onUpdateInstance({
             primeSpire: isPrime ? newActiveSpire : activeInstance.primeSpire,
-            echoSpires: isPrime ? activeInstance.echoSpires : activeInstance.echoSpires.map(s => s.id === activeInstance.activeSpireId ? newActiveSpire : s)
+            echoSpires: isPrime ? (activeInstance.echoSpires || []) : (activeInstance.echoSpires || []).map(s => s.id === activeInstance.activeSpireId ? newActiveSpire : s)
         });
     };
 
