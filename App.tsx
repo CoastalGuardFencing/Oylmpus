@@ -340,7 +340,7 @@ export function App() {
   const [currentReview, setCurrentReview] = useState<GeminiReviewResponse | null>(null);
   const [isReviewing, setIsReviewing] = useState<boolean>(false);
   const [isAutoReviewing, setIsAutoReviewing] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<string>('dashboard');
+  const [activeTab, setActiveTab] = useState<string>('inscription-deck');
   const [isChatting, setIsChatting] = useState<boolean>(false);
   const [latestResonanceScore, setLatestResonanceScore] = useState<number>(0);
   const [isBreathing, setIsBreathing] = useState<boolean>(false);

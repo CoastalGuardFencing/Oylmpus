@@ -2,10 +2,10 @@ import { GoogleGenAI, Type, Chat } from "@google/genai";
 import type { GeminiReviewResponse, PromptAnalysis, EmotionalState, SystemLaw, Persona, AppState, WhitePaperContent, CodeOptimizationResult, FeedbackDetail, PersonaCascade, CodeInstance, SovereignKey } from '../types';
 import { modules } from "../config/moduleConfig";
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = (import.meta as any).env?.VITE_API_KEY || '';
 
 if (!API_KEY) {
-  throw new Error("API_KEY environment variable is not set.");
+  console.warn("VITE_API_KEY environment variable is not set. API calls will be mocked.");
 }
 
 const ai = new GoogleGenAI({ apiKey: API_KEY });
