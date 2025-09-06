@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Module } from '../types';
 import ReviewPanel from '../components/ReviewPanel';
 import ChatPanel from '../components/ChatPanel';
