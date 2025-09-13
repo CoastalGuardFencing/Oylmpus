@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { CodeInstance, SovereignKey, AppState, AetheriumJob, SystemLaw, EmotionalState } from '../types';
 import LanguageSelector from './LanguageSelector';
-import CodeEditor from './CodeEditor';
+import SimpleCodeEditor from './SimpleCodeEditor';
 import { CodeIcon, TerminalIcon, SparklesIcon, CopyPlusIcon, AetherSigilIcon, BrainCircuitIcon } from './icons';
 import { findKeyInTree, updateKeyInTree } from '../utils/treeUtils';
 import PreviewPanel from './PreviewPanel';
@@ -152,7 +152,7 @@ const UnifiedComposerPanel: React.FC<UnifiedComposerPanelProps> = (props) => {
                 {/* --- Column 2: Editor & Preview --- */}
                 <main className="col-span-1 flex flex-col gap-4 min-h-0">
                      <div className="flex-[3] min-h-0 bg-surface-alt border border-border rounded-lg overflow-hidden">
-                        <CodeEditor value={activeKey?.content || ''} onChange={handleCodeChange} language={getMonacoLanguage(activeInstance.selectedLanguages[0])} readOnly={isReviewing || isViewerMode} />
+                        <SimpleCodeEditor value={activeKey?.content || ''} onChange={handleCodeChange} language={getMonacoLanguage(activeInstance.selectedLanguages[0])} readOnly={isReviewing || isViewerMode} />
                     </div>
                     <div className="flex-[2] min-h-0">
                          <PreviewPanel />
