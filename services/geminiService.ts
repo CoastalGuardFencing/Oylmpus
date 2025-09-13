@@ -2,13 +2,18 @@ import { GoogleGenAI, Type, Chat } from "@google/genai";
 import type { GeminiReviewResponse, PromptAnalysis, EmotionalState, SystemLaw, Persona, AppState, WhitePaperContent, CodeOptimizationResult, FeedbackDetail, PersonaCascade, CodeInstance, SovereignKey } from '../types';
 import { modules } from "../config/moduleConfig";
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = (import.meta as any).env?.VITE_API_KEY || '';
 
-if (!API_KEY) {
-  throw new Error("API_KEY environment variable is not set.");
+let ai: GoogleGenAI | null = null;
+
+// Initialize AI only if API key is available
+if (API_KEY) {
+    try {
+        ai = new GoogleGenAI({ apiKey: API_KEY });
+    } catch (error) {
+        console.warn('Failed to initialize Gemini AI:', error);
+    }
 }
-
-const ai = new GoogleGenAI({ apiKey: API_KEY });
 
 /**
  * NEW: Centralized error handler for all Gemini API calls.

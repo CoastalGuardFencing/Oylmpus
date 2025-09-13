@@ -340,4 +340,31 @@ export interface AppState {
     pilgrims: PilgrimProfile[];
     activePilgrimId: string | null;
     mobileAuthState: 'guest' | 'authenticated'; // For Mobile Mirror
+    onedriveConfig: OneDriveConfig | null; // For OneDrive integration
+    onedriveFiles: OneDriveFile[]; // Cached OneDrive files
+}
+
+// OneDrive Integration Types
+export interface OneDriveConfig {
+    clientId: string;
+    clientSecret: string;
+    redirectUri: string;
+}
+
+export interface OneDriveFile {
+    id: string;
+    name: string;
+    path: string;
+    size: number;
+    isFolder: boolean;
+    modifiedDateTime: string;
+    downloadUrl?: string;
+}
+
+export interface OneDriveAuthResult {
+    success: boolean;
+    accessToken?: string;
+    refreshToken?: string;
+    expiresIn?: number;
+    error?: string;
 }
