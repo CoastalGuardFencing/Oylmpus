@@ -210,6 +210,8 @@ const initialAppState: Omit<AppState, 'codeInstances' | 'activeCodeInstanceId'> 
     pilgrims: [{ id: 'sovereign-architect', name: 'Sovereign Architect', joinedTimestamp: Date.now() }],
     activePilgrimId: 'sovereign-architect',
     mobileAuthState: 'guest',
+    onedriveConfig: null,
+    onedriveFiles: [],
 };
 
 const getInitialStateFromStorage = (): AppState => {
@@ -301,7 +303,7 @@ export function App() {
     approvedLore, apiKeys, systemBreathLog, isHeraProtocolActive, pureIntentLock, aetheriumJobs,
     dockerfileContent, cloudbuildContent, deploymentState, sovereignBondStrength, cognitiveState,
     genesisState, tridentProtocolActive, genesisString, userProfile, terminalLogs,
-    pilgrims, activePilgrimId, mobileAuthState
+    pilgrims, activePilgrimId, mobileAuthState, onedriveConfig, onedriveFiles
   } = appState;
 
   const activeCodeInstance = codeInstances.find(c => c.id === activeCodeInstanceId) || codeInstances[0];
@@ -638,6 +640,32 @@ export function App() {
                       // OlympusTrustPanel props (now OlympusBanking)
                       wallet={wallet}
                       onTransfer={handleOnTransfer}
+
+                      // OneDrivePanel props
+                      onedriveConfig={onedriveConfig}
+                      onedriveFiles={onedriveFiles}
+                      onUpdateConfig={(config: typeof onedriveConfig) => setAppStateProp('onedriveConfig', config)}
+                      onUpdateFiles={(files: typeof onedriveFiles) => setAppStateProp('onedriveFiles', files)}
+                      onCreateCodeInstance={(instance: Partial<CodeInstance>) => {
+                          const newInstance: CodeInstance = {
+                              ...instance,
+                              id: instance.id || Date.now(),
+                              name: instance.name || 'OneDrive Import',
+                              primeSpire: instance.primeSpire || { id: `key-${Date.now()}`, name: 'Root', content: '', children: [] },
+                              echoSpires: instance.echoSpires || [],
+                              activeSpireId: instance.activeSpireId || `key-${Date.now()}`,
+                              activeKeyId: instance.activeKeyId || `key-${Date.now()}`,
+                              selectedLanguages: instance.selectedLanguages || ['Plaintext'],
+                              reviewHistory: instance.reviewHistory || [],
+                              isPerfect: instance.isPerfect || false,
+                              humanApproved: instance.humanApproved || false,
+                              status: instance.status || 'active',
+                          } as CodeInstance;
+                          const newInstances = [...codeInstances, newInstance];
+                          setAppStateProp('codeInstances', newInstances);
+                          setAppStateProp('activeCodeInstanceId', newInstance.id);
+                      }}
+                      onNotification={setNotificationWithTimeout}
                       
                       // CommandCenterPanel (InscriptionDeck) & Dashboard props
                       codeInstances={codeInstances}

@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Module } from '../types';
 import ReviewPanel from '../components/ReviewPanel';
 import ChatPanel from '../components/ChatPanel';
@@ -32,11 +31,20 @@ import InvestorPortalPanel from '../components/InvestorPortalPanel';
 import DashboardPanel from '../components/DashboardPanel';
 import MobileMirrorPanel from '../components/MobileMirrorPanel';
 import PitchRitualPanel from '../components/PitchRitualPanel';
+import OneDrivePanel from '../components/OneDrivePanel';
 
 
-import { SparklesIcon, ChatIcon, BookOpenIcon, ScrollTextIcon, UserCheckIcon, Share2Icon, FingerprintIcon, FileTextIcon, ListChecksIcon, BrainCircuitIcon, CopyPlusIcon, CompassIcon, MagicWandIcon, SearchCheckIcon, TrendingUpIcon, FolderUpIcon, AetherSigilIcon, UserIcon, BridgeIcon, MapIcon, ZapIcon, Wand2Icon, HeartIcon, ShieldCheckIcon, LandmarkIcon, SmartphoneIcon, LayoutGridIcon, PresentationIcon } from '../components/icons';
+import { SparklesIcon, ChatIcon, BookOpenIcon, ScrollTextIcon, UserCheckIcon, Share2Icon, FingerprintIcon, FileTextIcon, ListChecksIcon, BrainCircuitIcon, CopyPlusIcon, CompassIcon, MagicWandIcon, SearchCheckIcon, TrendingUpIcon, FolderUpIcon, AetherSigilIcon, UserIcon, BridgeIcon, MapIcon, ZapIcon, Wand2Icon, HeartIcon, ShieldCheckIcon, LandmarkIcon, SmartphoneIcon, LayoutGridIcon, PresentationIcon, CloudIcon } from '../components/icons';
 
 export const modules: Module[] = [
+    {
+        id: 'onedrive',
+        name: 'OneDrive',
+        icon: CloudIcon,
+        component: OneDrivePanel,
+        enabled: true,
+        description: 'Connect to Microsoft OneDrive to pull files and import them as code inscriptions.'
+    },
     {
         id: 'pitch-ritual',
         name: 'Pitch Ritual',
