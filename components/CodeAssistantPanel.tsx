@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import type { CodeInstance, SovereignKey, DeploymentState, AppState, SystemLaw, EmotionalState } from '../types';
 import { SparklesIcon, CopyPlusIcon, AetherSigilIcon, BrainCircuitIcon } from './icons';
-import CodeEditor from './CodeEditor';
+import SimpleCodeEditor from './SimpleCodeEditor';
 import { findKeyInTree } from '../utils/treeUtils';
 import SystemLawComposer from './SystemLawComposer';
 
@@ -150,7 +150,7 @@ const CodeAssistantPanel: React.FC<CodeAssistantPanelProps> = ({ activeInstance,
             <div className="flex-1 p-4 min-h-0 flex flex-col">
                 <label htmlFor="code-view" className="text-xs font-semibold text-text-muted mb-1">Active Key Content</label>
                 <div id="code-view" className="w-full h-full border border-border rounded-lg overflow-hidden bg-surface-alt">
-                    <CodeEditor
+                    <SimpleCodeEditor
                         value={activeKey.content}
                         language={getMonacoLanguage(activeInstance.selectedLanguages[0])}
                         readOnly={true}

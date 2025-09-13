@@ -1,0 +1,6 @@
+Extensions installed on Codespaces: symmetrical zebra:
+github.codespaces
+github.copilot
+github.copilot-chat
+github.github-vscode-theme
+github.vscode-pull-request-github
